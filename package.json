@@ -1,0 +1,20 @@
+{
+  "name": "survey-backend",
+  "version": "1.0.0",
+  "description": "survey-system application",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naveenpyreddy20/survey-backend.git"
+  },
+  "author": "naveen nikhik neha santhosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naveenpyreddy20/survey-backend/issues"
+  },
+  "homepage": "https://github.com/naveenpyreddy20/survey-backend#readme"
+}
