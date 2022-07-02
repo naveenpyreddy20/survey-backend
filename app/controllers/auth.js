@@ -85,30 +85,4 @@ exports.signin = (req, res) => {
     });
 };
 
-// exports.logout = (req, res) => {
-//   User.findOne({
-//     where: {
-//       id: req.params.userId
-//     }
-//   })
-//     .then(user => {
-//       if (!user) {
-//         return res.status(404).send({ message: "User Not found." });
-//       }
-//       if(req.userId !== user.id){
-//           return res.send({
-//               message:"unauthorized logout attempt recorded"
-//           })
-//       }
 
-//       user.token = null
-//       user.save()
-//       res.status(200).send({
-//         message: "logout successfull"
-//       });
-
-//     })
-//     .catch(err => {
-//       res.status(500).send({ message: err.message });
-//     });
-// };
