@@ -1,6 +1,6 @@
-const { authJwt } = require("../middleware");
-const superAdminController = require("../controllers/superAdmin");
-const authFunctions = require("../middleware/auth")
+const controller = require("../controllers/superAdmin");
+const authFunctions = require("../middleware/auth");
+const auth = require("./auth");
 module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
@@ -10,13 +10,8 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/superadmin/alladmins", controller.getAllAdmins);
 
-  app.get(
-    "/api/test/user",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );
 
+  app.get("/api/user/alladmins", [authFunctions.verifyToken, authFunctions.superAdmin], controller.adminList);
 
 };

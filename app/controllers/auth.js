@@ -7,25 +7,24 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
     if (!req.body.email) {
-        res.status(400).send({
+      return  res.status(400).send({
           message: "Failed! Email Required!"
         });
       }
       // Email
-      User.findOne({
+    let user =  User.findOne({
         where: {
           email: req.body.email
         }
-      }).then(user => {
-        if (user) {
-          res.status(400).send({
-            message: "Email already Exists!"
-          });
-          return;
-        }
     })
+    console.log("user",user)
+    if (user) {
+      return  res.status(400).send({
+          message: "Email already Exists!"
+        });
+      }
   // Save User to Database
   User.create({
     username: req.body.username,
@@ -34,7 +33,7 @@ exports.signup = (req, res) => {
     userRole : req.body.userRole ? req.body.userRole : "admin"
   })
     .then(user => {
-      res.send({ message: "User registered successfully!", user: user });
+    return  res.send({ message: "User registered successfully!", user: user });
     })
     .catch(err => {
       console.log("error")
