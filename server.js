@@ -7,7 +7,7 @@ var corsOptions = {
   origin: "http://localhost:3000"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -31,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/auth")(app);
+require("./app/routes/superAdmin")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
