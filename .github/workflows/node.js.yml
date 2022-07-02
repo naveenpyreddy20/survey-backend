@@ -1,8 +1,10 @@
 name: DEPLOY TO STAGING
 
 on:
-  pull_request:
-    branches: ["dev"]
+    pull_request:
+        types : [closed]
+        branches:
+            - dev
 
 jobs:
   aws-deploy:
