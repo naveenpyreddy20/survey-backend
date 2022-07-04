@@ -14,13 +14,13 @@ exports.signup = async (req, res) => {
         });
       }
       // Email
-    let user =  User.findOne({
+    let user = await User.findOne({
         where: {
           email: req.body.email
         }
     })
     console.log("user",user)
-    if (user) {
+    if (user!==null) {
       return  res.status(400).send({
           message: "Email already Exists!"
         });
