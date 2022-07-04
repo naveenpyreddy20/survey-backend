@@ -26,7 +26,7 @@ db.sequelize.sync();
 // });
 
 // simple route
-app.get("/api/test", (req, res) => {
+app.get("/api/testing", (req, res) => {
   res.json({ message: "Welcome to survey-system application." });
 });
 
