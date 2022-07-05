@@ -15,5 +15,5 @@ module.exports = function (app) {
   );
 
   app.post("/api/user/signin", controller.signin);
-
+  app.get("/api/user/logout/:id", controller.signout);
 };

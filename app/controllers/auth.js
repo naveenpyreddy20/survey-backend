@@ -84,4 +84,24 @@ exports.signin = (req, res) => {
     });
 };
 
-
+exports.signout = (req, res) => {
+    User.findOne({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({ message: "User Not found." });
+        }
+  
+        user.token = null;
+        user.save();
+        res.status(200).send({
+          message: "logout successfully",
+        });
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  };
