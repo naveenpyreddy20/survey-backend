@@ -31,24 +31,24 @@ db.option = require("../models/optionsModel")(sequelize, Sequelize);
 
 //relatinons
 db.user.hasMany(db.survey, {
-    as: 'Survey'
+    as: 'survey'
   });
 db.survey.belongsTo(db.user, {
     foreignKey: 'userId', as: 'User',
   });
 
   db.survey.hasMany(db.question, {
-    as: 'Question'
+    as: 'question'
   });
   db.question.belongsTo(db.survey, {
-    foreignKey: 'surveyId', as: 'Survey',
+    foreignKey: 'surveyId', as: 'survey',
   });
   
   db.question.hasMany(db.option, {
-    as: 'Option'
+    as: 'option'
   });
   db.option.belongsTo(db.question, {
-    foreignKey: 'questionId', as: 'Question',
+    foreignKey: 'questionId', as: 'question',
   });
 
 

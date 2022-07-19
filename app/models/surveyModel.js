@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       surveyDescription: {
         type: Sequelize.STRING
       },
-      isPublished: {
+      makeLive: {
         type: Sequelize.BOOLEAN
       },
       surveyLink: {

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize)=> {
-    const Option = sequelize.define("choices", {
-      choice: {
+    const Option = sequelize.define("options", {
+      option: {
         type: Sequelize.STRING
       }
     });
