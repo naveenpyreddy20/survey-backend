@@ -32,7 +32,7 @@ app.get("/api/test", (req, res) => {
 
 require("./app/routes/auth")(app);
 require("./app/routes/superAdmin")(app);
-
+require("./app/routes/survey")(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
