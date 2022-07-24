@@ -73,7 +73,7 @@ exports.createSurvey = async (req, res) => {
     if(req.query.makeLive === "false"){
     let updateSurvey = await  survey.update(
       {makeLive:false},
-     { where: { id: req.params.surveyId }}
+     { where: { id: req.params.id }}
     )
     if(updateSurvey == 0){
       return res.status(200).send({
@@ -87,7 +87,7 @@ exports.createSurvey = async (req, res) => {
      if(req.query.makeLive === "true"){
     let updateSurvey =  await  survey.update(
        {makeLive:true},
-      { where: { id: req.params.surveyId }}
+      { where: { id: req.params.id }}
      )
      if(updateSurvey == 0){
       return res.status(200).send({
