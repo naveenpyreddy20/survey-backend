@@ -70,7 +70,7 @@ exports.createSurvey = async (req, res) => {
 
   exports.makeSurveyLive = async(req, res) => {
     //find all users
-    if(req.query.makeSurveyLive === "false"){
+    if(req.query.makeLive === "false"){
     let updateSurvey = await  survey.update(
       {makeLive:false},
      { where: { id: req.params.surveyId }}
