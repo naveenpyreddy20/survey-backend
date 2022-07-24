@@ -40,6 +40,7 @@ exports.createSurvey = async (req, res) => {
   
   };
 
+
   exports.surveyList =async (req, res) => {
     if(req.query.adminId){
       //get user
@@ -76,4 +77,31 @@ exports.createSurvey = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
   }
+
+  exports.deleteSurvey = (req, res) => {
+    const id = req.params.id;
+    survey.destroy({
+      where: { id: id }
+    })
+      .then(async response => {
+        if (response == 1) {
+          console.log("resp",response)
+         await question.destroy({
+            where:{surveyId:id}
+          })
+          res.send({
+            message: "Survey  deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Survey  with id=${id}. Maybe Survey was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete survey with id=" + id
+        });
+      });
+
   };
