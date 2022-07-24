@@ -16,6 +16,6 @@ module.exports = function (app) {
     [authFunctions.verifyToken],
     controller.createSurvey
   );
-  app.delete("/api/survey/:id", [authFunctions.verifyToken], controller.makeSurveyLive);
+  app.put("/api/survey/:id", [authFunctions.verifyToken], controller.makeSurveyLive);
 
 };
