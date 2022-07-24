@@ -68,7 +68,7 @@ exports.createSurvey = async (req, res) => {
       });
   };
 
-  exports.publishSurvey = async(req, res) => {
+  exports.makeSurveyLive = async(req, res) => {
     //find all users
     if(req.query.makeSurveyLive === "false"){
     let updateSurvey = await  survey.update(
