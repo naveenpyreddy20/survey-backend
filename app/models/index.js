@@ -29,7 +29,7 @@ db.survey = require("../models/surveyModel")(sequelize, Sequelize);
 db.question = require("../models/questionModel")(sequelize, Sequelize);
 db.option = require("../models/optionsModel")(sequelize, Sequelize);
 
-//relatinons
+//relations
 db.user.hasMany(db.survey, {
     as: 'survey'
   });
