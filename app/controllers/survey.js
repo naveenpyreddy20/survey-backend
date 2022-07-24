@@ -3,7 +3,6 @@ const user = db.user
 const question = db.question
 const survey = db.survey
 const service = require("../services/surveyService")
-
 exports.createSurvey = async (req, res) => {
     try {
       //checking title and description
@@ -39,4 +38,42 @@ exports.createSurvey = async (req, res) => {
       res.status(500).send(err)
     }
   
+  };
+
+  exports.surveyList =async (req, res) => {
+    if(req.query.adminId){
+      //get user
+      let userFound = await user.findOne({
+        where:{id:req.query.adminId}
+      })
+      if(userFound){
+        let surveyList = await survey.findAll({
+          where:{userId:userFound.id}
+        })
+        console.log("user",userFound)
+        return res.status(200).send({
+          surveys:surveyList,
+          userDetails:{  
+            username:userFound.username,
+          }
+        })
+      }else{
+        return res.status(404).send("user not found")
+      }
+    }else{
+    //find all surveys
+  survey.findAll({
+      where: { userId: req.userId }
+    })
+
+    .then((surveys) => {
+      
+      res.status(200).send(surveys);
+
+    })
+    .catch((err) => {
+      console.log("error");
+      res.status(500).send({ message: err.message });
+    });
+  }
   };

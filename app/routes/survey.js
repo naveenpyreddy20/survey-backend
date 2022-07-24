@@ -17,4 +17,7 @@ module.exports = function (app) {
     controller.createSurvey
   );
 
+  app.get("/api/surveylist",[authFunctions.verifyToken], controller.surveyList);
+
+
 };
