@@ -77,6 +77,7 @@ exports.createSurvey = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
   }
+}
 
   exports.deleteSurvey = (req, res) => {
     const id = req.params.id;
