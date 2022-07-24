@@ -67,3 +67,36 @@ exports.createSurvey = async (req, res) => {
         });
       });
   };
+
+  exports.publishSurvey = async(req, res) => {
+    //find all users
+    if(req.query.makeLive === "false"){
+    let updateSurvey = await  survey.update(
+      {makeLive:false},
+     { where: { id: req.params.surveyId }}
+    )
+    if(updateSurvey == 0){
+      return res.status(200).send({
+        message:"Error occured.Please check surveyId and published values"
+      })
+    }
+    return res.status(200).send({
+      message:"unpublish successfull"
+    })
+     }
+     if(req.query.makeLive === "true"){
+    let updateSurvey =  await  survey.update(
+       {makeLive:true},
+      { where: { id: req.params.surveyId }}
+     )
+     if(updateSurvey == 0){
+      return res.status(200).send({
+        message:"Error occured.Please check surveyId and published values"
+      })
+    }
+     return res.status(200).send({
+      message:"publish successfull"
+    })
+      }
+
+    }
