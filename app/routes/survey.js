@@ -19,6 +19,8 @@ module.exports = function (app) {
 
   app.get("/api/surveylist",[authFunctions.verifyToken], controller.surveyList);
 
+    app.get("/api/survey/:surveyId",[authFunctions.verifyToken],controller.viewSurvey)
+
   app.delete("/api/survey/:id", [authFunctions.verifyToken], controller.deleteSurvey);
 
 
