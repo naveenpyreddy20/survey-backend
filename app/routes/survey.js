@@ -10,7 +10,6 @@ module.exports = function (app) {
     next();
   });
 
-
   app.post(
     "/api/survey",
     [authFunctions.verifyToken],
@@ -19,6 +18,8 @@ module.exports = function (app) {
   app.put("/api/survey/:id", [authFunctions.verifyToken], controller.makeSurveyLive);
 
   app.get("/api/surveylist",[authFunctions.verifyToken], controller.surveyList);
+
+  app.get("/api/survey/:surveyId", [authFunctions.verifyToken], controller.viewSurvey);
 
 
 };
