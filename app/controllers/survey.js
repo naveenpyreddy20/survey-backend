@@ -88,7 +88,7 @@ exports.createSurvey = async (req, res) => {
         if (response == 1) {
           console.log("resp",response)
          await question.destroy({
-            where:{surveyId:id}
+            where:{surveyId:null}
           })
           res.send({
             message: "Survey  deleted successfully!"
