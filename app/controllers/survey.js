@@ -42,6 +42,7 @@ exports.createSurvey = async (req, res) => {
   };
 
   exports.deleteSurvey = (req, res) => {
+      
     const id = req.params.id;
     survey.destroy({
       where: { id: id }
