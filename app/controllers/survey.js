@@ -80,6 +80,7 @@ exports.createSurvey = async (req, res) => {
   }
 }
 
+
   exports.deleteSurvey = (req, res) => {
     const id = req.params.id;
     survey.destroy({
@@ -141,8 +142,6 @@ exports.createSurvey = async (req, res) => {
     }
 
  
-
-
   exports.viewSurvey = async(req,res) =>{
     try{
         console.log("view survey",req.params.surveyId)
@@ -183,3 +182,50 @@ exports.createSurvey = async (req, res) => {
       return res.status(200).send("email not sent")
     }
   }
+
+
+  exports.submitSurvey = async (req, res) => {
+    try {
+      let getSurveyInfo = await survey.findOne({
+        where: { id: req.query.surveyId },
+      });
+      if (!getSurveyInfo || !getSurveyInfo.dataValues.makeLive) {
+        return res.status(404).json({
+          message: "Survey dont exists ",
+        });
+      }
+      if (!req.body.email || !req.body.name) {
+        return res.status(400).json({
+          message: "email and name are required ",
+        });
+      }
+      let checkEmail = await service.checkEmail(
+        req.body.email,
+        req.query.surveyId
+      );
+      if (checkEmail) {
+        return res.status(400).send({
+          message: "Response already Exists!",
+        });
+      }
+      let Participant = await service.saveParticipant(
+        req.body.email,
+        req.body.name,
+        req.query.surveyId
+      );
+      for (let i = 0; i < req.body.responses.length; i++) {
+        await response.create({
+          response: req.body.responses[i].response,
+          participantId: Participant.dataValues.id,
+          questionId: req.body.responses[i].id,
+        });
+      }
+  
+      return res.status(200).send({
+        message: "response saved",
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  };
+  
