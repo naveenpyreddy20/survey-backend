@@ -149,11 +149,25 @@ exports.createSurvey = async (req, res) => {
             where: { id: req.params.surveyId},
             include: [
               {
-                model: db.question, as: 'question',
-                include: [{
-                  model: db.option, as: "option"
-                }]
-              }
+                model: db.question,
+                as: "question",
+                include: [
+                  {
+                    model: db.option,
+                    as: "option",
+                  },
+                  {
+                    model: db.response,
+                    as: "response",
+                    include: [
+                      {
+                        model: db.participant,
+                        as: "participant",
+                      },
+                    ],
+                  },
+                ],
+              },
             ]
           }) 
           console.log("survey",Survey)
