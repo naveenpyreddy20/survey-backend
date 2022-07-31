@@ -3,6 +3,7 @@ const user = db.user
 const question = db.question
 const survey = db.survey
 const service = require("../services/surveyService")
+const email = require("../services/email")
 exports.createSurvey = async (req, res) => {
     try {
       //checking title and description
@@ -169,4 +170,16 @@ exports.createSurvey = async (req, res) => {
           })
     }
   }
-
+  exports.sendSurveyLink = async (req, res) => {
+    if (!req.body.surveylink || !req.body.useremail) {
+      return res.status(400).send({
+        message: "link and  email are required to send email"
+      })
+    }
+    let sendEmail = await email.sendEmail(req.body.surveylink, req.body.useremail)
+    if (sendEmail) {
+      return res.status(200).send("email sent ")
+    } else {
+      return res.status(200).send("email not sent")
+    }
+  }
