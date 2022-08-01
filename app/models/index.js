@@ -28,7 +28,8 @@ db.user = require("../models/userModel")(sequelize, Sequelize);
 db.survey = require("../models/surveyModel")(sequelize, Sequelize);
 db.question = require("../models/questionModel")(sequelize, Sequelize);
 db.option = require("../models/optionsModel")(sequelize, Sequelize);
-
+db.participant = require("./participantModel")(sequelize, Sequelize);
+db.response = require("./responseModel")(sequelize, Sequelize);
 //relations
 db.user.hasMany(db.survey, {
     as: 'survey'
@@ -51,5 +52,28 @@ db.survey.belongsTo(db.user, {
     foreignKey: 'questionId', as: 'question',
   });
 
+  db.survey.hasMany(db.participant, {
+    as: "participant",
+  });
+  db.participant.belongsTo(db.survey, {
+    foreignKey: "surveyId",
+    as: "survey",
+  });
+  
+  db.question.hasMany(db.response, {
+    as: "response",
+  });
+  db.response.belongsTo(db.question, {
+    foreignKey: "questionId",
+    as: "question",
+  });
+  
+  db.participant.hasMany(db.response, {
+    as: "response",
+  });
+  db.response.belongsTo(db.participant, {
+    foreignKey: "participantId",
+    as: "participant",
+  });
 
 module.exports = db;
