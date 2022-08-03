@@ -29,5 +29,6 @@ module.exports = function (app) {
     app.post("/api/submit/survey", controller.submitSurvey);
 
     app.get("/api/surveyquestions", controller.surveyQuestions);
+    app.get("/api/report/:surveyId", [authFunctions.verifyToken], controller.generateSurveyReport);
 
   };
