@@ -30,14 +30,14 @@ if(Question.questionType == "multiple-choice-question"){
 
   //check email exists
 exports.checkEmail = async (email, id) => {
-check   // Email
+//check   // Email
   let exists = await participant.findOne({
     where: {
       email: email, surveyId: id
     }
   })
   if (exists == null) {
-    return true
+    return false
   }
   return true
 };
