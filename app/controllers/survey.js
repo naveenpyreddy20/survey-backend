@@ -203,6 +203,7 @@ exports.createSurvey = async (req, res) => {
       let surveyDetails = await survey.findOne({
         where: { id: req.query.surveyId },
       });
+      console.log("doe",surveyDetails.dataValues)
       if (!surveyDetails || !surveyDetails.dataValues.makeLive) {
         return res.status(404).json({
           message: "Survey dont exists ",
@@ -264,7 +265,12 @@ exports.createSurvey = async (req, res) => {
         ],
       });
       console.log("survey", Survey);
-      if (!Survey || Survey == null) {
+      if (!Survey || Survey.dataValues == null) {
+        return res.status(404).send({
+          message: "survey Don't Exists",
+        });
+      }
+      if(!Survey.dataValues.makeLive){
         return res.status(404).send({
           message: "survey Don't Exists",
         });
