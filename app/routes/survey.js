@@ -27,4 +27,7 @@ module.exports = function (app) {
     "/api/send/email",[authFunctions.verifyToken],controller.sendSurveyLink);
 
     app.post("/api/submit/survey", controller.submitSurvey);
+
+    app.get("/api/surveyquestions", controller.surveyQuestions);
+
   };

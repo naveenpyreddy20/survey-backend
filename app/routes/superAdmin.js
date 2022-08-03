@@ -10,8 +10,10 @@ module.exports = function (app) {
     next();
   });
 
-
-
   app.get("/api/user/alladmins", [authFunctions.verifyToken, authFunctions.superAdmin], controller.adminList);
-
+  app.delete(
+    "/api/user/delete",
+    [authFunctions.verifyToken, authFunctions.superAdmin],
+    controller.deleteUser
+  );
 };

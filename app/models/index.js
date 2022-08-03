@@ -30,6 +30,8 @@ db.question = require("../models/questionModel")(sequelize, Sequelize);
 db.option = require("../models/optionsModel")(sequelize, Sequelize);
 db.participant = require("../models/participantModel")(sequelize,Sequelize)
 db.response = require("../models/responseModel")(sequelize,Sequelize)
+
+//relations
 //relations
 db.user.hasMany(db.survey, {
     as: 'survey'
@@ -82,4 +84,5 @@ db.response.belongsTo(db.participant, {
   foreignKey: 'participantId', as: 'participant',
 });
 //
+
 module.exports = db;
