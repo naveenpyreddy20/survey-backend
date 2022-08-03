@@ -282,3 +282,49 @@ exports.createSurvey = async (req, res) => {
       });
     }
   };
+
+
+  exports.generateSurveyReport = async (req, res) => {
+    let surveyreports = []
+    console.log("here")
+    let survey_responses = await response.findAll({
+      where: { surveyId: req.params.surveyId },
+      include: ["question", "participant"],
+    })
+    console.log("sur",survey_responses)
+    for (let i = 0; i < survey_responses.length; i++) {
+      if (surveyreports.length == 0) {
+        let object ={
+          'email':survey_responses[i].participant.email,
+          'name':survey_responses[i].participant.name
+        }
+        surveyreports.push( object )
+      } else {
+        email_found = false
+        for (let j = 0; j < surveyreports.length; j++) {
+          if (survey_responses[i].participant.email == surveyreports[j]['email']) {
+            email_found = true
+          }
+        }
+        if (!email_found) {
+          let object ={
+            'email':survey_responses[i].participant.email,
+            'name':survey_responses[i].participant.name
+          }
+          surveyreports.push(object)
+        }
+      }
+    }
+    console.log("reo",surveyreports)
+    for (let i = 0; i < survey_responses.length; i++) {
+      
+      for (let j = 0; j < surveyreports.length; j++) {
+        if (survey_responses[i].participant.email == surveyreports[j]["email"]) {
+          let question = survey_responses[i].question.questionTitle
+          surveyreports[j][question] = survey_responses[i].response
+        }
+      }
+    }
+    console.log("surveyreports")
+    return res.status(200).send(surveyreports);
+  }
