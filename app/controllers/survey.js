@@ -4,6 +4,7 @@ const question = db.question
 const survey = db.survey
 const service = require("../services/surveyService")
 const email = require("../services/email")
+const response = db.response
 exports.createSurvey = async (req, res) => {
     try {
       //checking title and description
@@ -79,7 +80,6 @@ exports.createSurvey = async (req, res) => {
     });
   }
 }
-
 
   exports.deleteSurvey = (req, res) => {
     const id = req.params.id;
@@ -200,26 +200,26 @@ exports.createSurvey = async (req, res) => {
 
   exports.submitSurvey = async (req, res) => {
     try {
-      let getSurveyInfo = await survey.findOne({
+      let surveyDetails = await survey.findOne({
         where: { id: req.query.surveyId },
       });
-      if (!getSurveyInfo || !getSurveyInfo.dataValues.makeLive) {
+      if (!surveyDetails || !surveyDetails.dataValues.makeLive) {
         return res.status(404).json({
           message: "Survey dont exists ",
         });
       }
       if (!req.body.email || !req.body.name) {
         return res.status(400).json({
-          message: "email and name are required ",
+          message: "email and name are required to submit response ",
         });
       }
-      let checkEmail = await service.checkEmail(
+      let emailExists = await service.checkEmail(
         req.body.email,
         req.query.surveyId
       );
-      if (checkEmail) {
+      if (emailExists) {
         return res.status(400).send({
-          message: "Response already Exists!",
+          message: "Response  Exists!",
         });
       }
       let Participant = await service.saveParticipant(
@@ -232,11 +232,12 @@ exports.createSurvey = async (req, res) => {
           response: req.body.responses[i].response,
           participantId: Participant.dataValues.id,
           questionId: req.body.responses[i].id,
+          surveyId:req.query.surveyId
         });
       }
   
       return res.status(200).send({
-        message: "response saved",
+        message: "response save successfully",
       });
     } catch (err) {
       res.status(500).send(err);
