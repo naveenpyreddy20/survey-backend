@@ -149,11 +149,25 @@ exports.createSurvey = async (req, res) => {
             where: { id: req.params.surveyId},
             include: [
               {
-                model: db.question, as: 'question',
-                include: [{
-                  model: db.option, as: "option"
-                }]
-              }
+                model: db.question,
+                as: "question",
+                include: [
+                  {
+                    model: db.option,
+                    as: "option",
+                  },
+                  {
+                    model: db.response,
+                    as: "response",
+                    include: [
+                      {
+                        model: db.participant,
+                        as: "participant",
+                      },
+                    ],
+                  },
+                ],
+              },
             ]
           }) 
           console.log("survey",Survey)
@@ -230,3 +244,35 @@ exports.createSurvey = async (req, res) => {
     }
   };
   
+
+  exports.surveyQuestions = async (req, res) => {
+    try {
+      console.log("view survey", req.query.surveyId);
+      var Survey = await survey.findOne({
+        where: { id: req.query.surveyId },
+        include: [
+          {
+            model: db.question,
+            as: "question",
+            include: [
+              {
+                model: db.option,
+                as: "option",
+              },
+            ],
+          },
+        ],
+      });
+      console.log("survey", Survey);
+      if (!Survey || Survey == null) {
+        return res.status(404).send({
+          message: "survey Don't Exists",
+        });
+      }
+      return res.status(200).send(Survey);
+    } catch (err) {
+      return res.status(500).send({
+        message: "Internal Server Error",
+      });
+    }
+  };
