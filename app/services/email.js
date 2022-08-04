@@ -11,7 +11,7 @@ exports.sendEmail = async (surveyLink, userEmail) => {
         pass: 'Naveen@12',
         clientId: '57486508966-6u0a27pgpkomf25v38hfe12oamrdnbfg.apps.googleusercontent.com',
         clientSecret: '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',
-        refreshToken: '1//04BksiMJuyH8UCgYIARAAGAQSNwF-L9IrsO3SrPJQB9lAqEAEDkLdQ3w7tkrksGJetGmX8e9i5-JsibSMuqasa5b9wpzsf_v3ncw'
+        refreshToken: '1//04Z0sBKKvXLxkCgYIARAAGAQSNwF-L9IrQBOw6d193ITgQJnoASA9boyweFfz7pESUI7BwcrQIXvbFoaHV7NyLgrBWUJZ0Q1KkWw'
       }
     });
 
